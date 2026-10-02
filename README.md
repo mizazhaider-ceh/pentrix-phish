@@ -3,8 +3,34 @@
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Deps](https://img.shields.io/badge/dependencies-zero-brightgreen)
+![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)
 
-A tiny command-line tool that scores URLs for **phishing red flags**. It runs 10 heuristics against a URL (punycode tricks, `@` credential confusion, IP hosts, URL shorteners, and more), adds up the points, and prints a risk verdict. Standard library only, no pip install needed.
+A tiny command-line tool that scores URLs for **phishing red flags**. It runs 10 heuristics against a URL (punycode tricks, `@` credential confusion, IP hosts, URL shorteners, and more), adds up the points, and prints a risk verdict. Standard library only, no pip install needed, fully offline.
+
+## Contents
+
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Heuristics](#heuristics)
+- [Install](#install)
+- [Usage](#usage)
+- [Exit codes](#exit-codes)
+- [Disclaimer](#disclaimer)
+- [License](#license)
+
+## Screenshots
+
+A crafted phishing-style URL lighting up four heuristics at once:
+
+![pentrix-phish flagging a HIGH-risk phishing URL](docs/images/01-high-score.png)
+
+A clean URL scores zero and stays quiet:
+
+![pentrix-phish scoring a clean URL as LOW risk](docs/images/02-clean-url.png)
+
+A lookalike domain hiding behind a URL shortener:
+
+![pentrix-phish detecting a lookalike behind a URL shortener](docs/images/03-shortener.png)
 
 ## Features
 
@@ -36,7 +62,7 @@ Score is capped at 100. Bands: **LOW** 0-29, **MEDIUM** 30-59, **HIGH** 60+.
 ## Install
 
 ```bash
-git clone <repo-url> pentrix-phish
+git clone https://github.com/mizazhaider-ceh/pentrix-phish.git
 cd pentrix-phish
 # nothing to install: Python 3 only, standard library
 python3 phish.py --help
@@ -160,6 +186,14 @@ python3 phish.py --json 'https://secure-paypal-account-verify.bit.ly/abc123'
   ]
 }
 ```
+
+## Exit codes
+
+| Code | Meaning |
+|---|---|
+| `0` | Analysis completed (any verdict, including HIGH) |
+| `1` | Usage error (bad arguments, unreadable input file) |
+| `2` | At least one URL was malformed and could not be parsed |
 
 ## Disclaimer
 
